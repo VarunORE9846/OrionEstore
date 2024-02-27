@@ -1,0 +1,29 @@
+// import axios from "axios";
+// import { useEffect } from "react";
+// import { useSearchParams } from "react-router-dom";
+
+// export const UserConfirm = () => {
+//   const [searchParams, setSearchParams] = useSearchParams();
+//   const verfyUser = async (userId: string, code: string, tenant: string) => {
+//     try {
+//       const response = await axios.get(
+//         `https://orionapi0.customerdemourl.com/api/users/confirm-email?tenant=${tenant}&userId=${userId}&code=${code}`
+//       );
+//       console.log(response);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+//   useEffect(() => {
+//     verfyUser(
+//       searchParams.get("userId") || "",
+//       searchParams.get("code") || "",
+//       searchParams.get("tenant") || ""
+//     );
+//   }, []);
+//   return (
+//     <div>
+//       <h1>User-Confirm Page</h1>
+//     </div>
+//   );
+// };

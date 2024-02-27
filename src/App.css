@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.form-error {
+  font-size: 1.4rem;
+  color: #b22b27;
+}
