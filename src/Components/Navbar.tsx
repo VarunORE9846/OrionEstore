@@ -14,25 +14,26 @@ import MenuItem from "@mui/material/MenuItem";
 
 // import AdbIcon from "@mui/icons-material/Adb";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Link, useLocation ,useNavigate} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const pages = ["Home", "LogIn", "SignUp"];
-const pages2 = ["Products","Profile"];
-interface Arr{
-  isUser:string,
-  accessToken:string,
-  refreshToken:string,
+const pages2 = ["Products", "Profile"];
+interface Arr {
+  isUser: string;
+  accessToken: string;
+  refreshToken: string;
 }
 const ResponsiveAppBar = () => {
   const [isUser, setIsUser] = useState<null | boolean>(false);
   const [loggedin, setLoggedin] = useState<Array<Arr>>();
   const location = useLocation();
-  const Navigate=useNavigate();
-  const logout=(e:any)=>{
-    e.preventDefault();
-    localStorage.removeItem("Loggedinuser");
-    Navigate('/Home')
-    setIsUser(false);
-  }
+  const Navigate = useNavigate();
+  const logout = () => {
+    // e.preventDefault();
+    localStorage.removeItem("Loggedinuser")
+      Navigate("/Home");
+      setIsUser(false);
+    
+  };
   React.useEffect(() => {
     const user = localStorage.getItem("Loggedinuser");
     if (user) {
@@ -88,93 +89,93 @@ const ResponsiveAppBar = () => {
           >
             OrionEStore
           </Typography>
-          {isUser && loggedin? (
-             <>
-             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-               <IconButton
-                 size="large"
-                 aria-label="account of current user"
-                 aria-controls="menu-appbar"
-                 aria-haspopup="true"
-                 onClick={handleOpenNavMenu}
-                 color="inherit"
-               >
-                 <MenuIcon />
-               </IconButton>
-               <Menu
-                 id="menu-appbar"
-                 anchorEl={anchorElNav}
-                 anchorOrigin={{
-                   vertical: "bottom",
-                   horizontal: "left",
-                 }}
-                 keepMounted
-                 transformOrigin={{
-                   vertical: "top",
-                   horizontal: "left",
-                 }}
-                 open={Boolean(anchorElNav)}
-                 onClose={handleCloseNavMenu}
-                 // onClick={handleCloseNavMenu}
-                 sx={{
-                   display: { xs: "block", md: "none" },
-                 }}
-               >
-                 <MenuItem>
-                   <Typography textAlign="center">
-                     <Link
-                       style={{ textDecoration: "none", color: "white" }}
-                       to="/Products"
-                     >
-                       Products
-                     </Link>
-                   </Typography>
-                 </MenuItem>
-               </Menu>
-             </Box>
+          {isUser && loggedin ? (
+            <>
+              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                  // onClick={handleCloseNavMenu}
+                  sx={{
+                    display: { xs: "block", md: "none" },
+                  }}
+                >
+                  <MenuItem>
+                    <Typography textAlign="center">
+                      <Link
+                        style={{ textDecoration: "none", color: "white" }}
+                        to="/Products"
+                      >
+                        Products
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
 
-             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-               {pages2.map((page2) => (
-                 <Button
-                   key={page2}
-                   onClick={handleCloseNavMenu}
-                   sx={{ my: 2, color: "white", display: "block" }}
-                 >
-                   <Link
-                     style={{ textDecoration: "none", color: "white" }}
-                     to={`/${page2}`}
-                   >
-                     {page2}
-                   </Link>
-                 </Button>
-               ))}
-             </Box>
-             <Box sx={{ flexGrow: 0 }}>
-               <Tooltip title="Open settings">
-                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                   <Avatar
-                     alt="Remy Sharp"
-                     src="/static/images/avatar/2.jpg"
-                   />
-                 </IconButton>
-               </Tooltip>
-               <Menu
-                 sx={{ mt: "45px" }}
-                 id="menu-appbar"
-                 anchorEl={anchorElUser}
-                 anchorOrigin={{
-                   vertical: "top",
-                   horizontal: "right",
-                 }}
-                 keepMounted
-                 transformOrigin={{
-                   vertical: "top",
-                   horizontal: "right",
-                 }}
-                 open={Boolean(anchorElUser)}
-                 onClose={handleCloseUserMenu}
-               >
-                 {/* <MenuItem onClick={handleCloseUserMenu}>
+              <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                {pages2.map((page2) => (
+                  <Button
+                    key={page2}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    <Link
+                      style={{ textDecoration: "none", color: "white" }}
+                      to={`/${page2}`}
+                    >
+                      {page2}
+                    </Link>
+                  </Button>
+                ))}
+              </Box>
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {/* <MenuItem onClick={handleCloseUserMenu}>
                    <Typography textAlign="center">
                      <Link
                        style={{ textDecoration: "none", color: "black" }}
@@ -184,23 +185,21 @@ const ResponsiveAppBar = () => {
                      </Link>
                    </Typography>
                  </MenuItem> */}
-                 <MenuItem onClick={handleCloseUserMenu}>
-                   <Typography textAlign="center">
-                     <Link
-                     to="/Home"
-                       style={{ textDecoration: "none", color: "Blue" }}
-                       onClick={logout}
-                       
-                     >
-                       Logout
-                     </Link>
-                   </Typography>
-                 </MenuItem>
-               </Menu>
-             </Box>
-           </>
-            
-           ) : ( 
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Link
+                        to="/Home"
+                        style={{ textDecoration: "none", color: "Blue" }}
+                        onClick={logout}
+                      >
+                        Logout
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
+            </>
+          ) : (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
@@ -282,8 +281,7 @@ const ResponsiveAppBar = () => {
                 ))}
               </Box>
             </>
-           
-           )} 
+          )}
         </Toolbar>
       </Container>
     </AppBar>
