@@ -96,12 +96,11 @@ export const Signup: React.FC = () => {
             <Formik
               initialValues={initialValues}
               validationSchema={Signups}
-              onSubmit={async (values, { setSubmitting,resetForm }) => {
+              onSubmit={async (values, { setSubmitting}) => {
                 setTimeout(() => {
                   // alert(JSON.stringify(values, null, 2));
                   console.log("Values from Signup.tsx", values);
                   setSubmitting(false);
-                  resetForm();
                 }, 400);
                 const payload: Formvalues = {
                   firstName: values.firstName,
@@ -120,7 +119,7 @@ export const Signup: React.FC = () => {
                     console.log(signupresponse.data);
                     setTimeout(() => {
                       navigate("/Login");
-                    }, 6000);
+                    }, 3000);
                   }
                 } catch (error: any) {
                   console.log("error", error?.response?.data?.messages);
@@ -270,7 +269,7 @@ export const Signup: React.FC = () => {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
-                    disabled={ isSubmitting}
+                    disabled={isSubmitting}
                   >
                     Sign Up
                   </Button>

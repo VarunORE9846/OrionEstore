@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import login from "../Images/login.jpg";
 import axios from "axios";
 import "../App.css";
@@ -113,14 +113,15 @@ export const Login: React.FC = () => {
                     );
 
                     if (loginresponse.status === 200) {
-                      
                       toast.success("Login Successful");
                       console.log(loginresponse.data);
-                      navigate("/Products");
-                      setSubmitting(false); 
+                      setTimeout(() => {
+                        navigate("/Products");
+                      }, 2000);
+                      setSubmitting(false);
                     }
                   } catch (error: any) {
-                    toast.error("invalid credentials");
+                    toast.error("Invalid Credentials");
                     setSubmitting(false);
                   }
                 }}
@@ -131,7 +132,7 @@ export const Login: React.FC = () => {
                   touched,
                   handleChange,
                   handleSubmit,
-              
+
                   isSubmitting,
                   /* and other goodies */
                 }) => (
