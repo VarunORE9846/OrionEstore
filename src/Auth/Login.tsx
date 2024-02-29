@@ -1,6 +1,7 @@
 // import React, { useEffect, useState } from "react";
 import login from "../Images/login.jpg";
-import axios from "axios";
+// import axios from "axios";
+import Api from "../Components/Api";
 import "../App.css";
 import { Logins } from "../Schemas/Logins";
 import { Formik } from "formik";
@@ -28,18 +29,22 @@ interface Log {
 export const Login: React.FC = () => {
   const defaulttheme = createTheme();
   const navigate = useNavigate();
-
-  const handleLogin = (data: { email: string; password: string }) => {
-    return axios.post(
-      "https://orionapi0.customerdemourl.com/api/tokens",
-      data,
-      {
-        headers: {
-          tenant: "root",
-        },
-      }
-    );
+  const handleLogin = (data: { email: string; password:string; }) => {
+    return Api.post("/tokens", data);
   };
+
+  // const handleLogin = (data: { email: string; password: string }) => {
+  //   return axios.post(
+  //     "https://orionapi0.customerdemourl.com/api/tokens",
+  //     data,
+  //     {
+  //       headers: {
+  //         tenant: "root",
+  //       },
+  //     }
+  //   );
+  // };
+
   const initialValues: Log = {
     email: "",
     password: "",
@@ -116,7 +121,7 @@ export const Login: React.FC = () => {
                       toast.success("Login Successful");
                       console.log(loginresponse.data);
                       setTimeout(() => {
-                        navigate("/Products");
+                        navigate("/Profile");
                       }, 2000);
                       setSubmitting(false);
                     }

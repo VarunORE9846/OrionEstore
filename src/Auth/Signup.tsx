@@ -19,7 +19,8 @@ import {
 import Avatar from "@mui/material/Avatar";
 import Container from "@mui/material/Container";
 import { Signups } from "../Schemas/Signups";
-import axios from "axios";
+// import axios from "axios";
+import Api from '../Components/Api'
 
 const defaulttheme = createTheme();
 const Copyright = (props: any) => {
@@ -61,17 +62,20 @@ const initialValues: Formvalues = {
 };
 export const Signup: React.FC = () => {
   const navigate = useNavigate();
-  const handleSignup = (data: any) => {
-    return axios.post(
-      "https://orionapi0.customerdemourl.com/api/users/self-register",
-      data,
-      {
-        headers: {
-          tenant: "root",
-        },
-      }
-    );
-  };
+  const handleSignup=(data:any)=>{
+    return Api.post('/users/self-register',data);
+  }
+  // const handleSignup = (data: any) => {
+  //   return axios.post(
+  //     "https://orionapi0.customerdemourl.com/api/users/self-register",
+  //     data,
+  //     {
+  //       headers: {
+  //         tenant: "root",
+  //       },
+  //     }
+  //   );
+  // };
 
   return (
     <>
