@@ -12,10 +12,11 @@ import { Signup } from "./Auth/Signup";
 import { Profile } from "./Pages/Profile";
 import { Products } from "./Pages/Products";
 import { Logout } from "@mui/icons-material";
-import  Pagenf  from "./Pages/Pagenf";
+import  {Pagenf}  from "./Pages/Pagenf";
 // import { useState, useEffect } from "react";
 import PrivateRoutes from "./Utils/PrivateRoutes";
 import PublicRoutes from "./Utils/PublicRoutes";
+import { Redirect } from "./Pages/Redirect";
 
 // import { UserConfirm } from "./Pages/UserConfirm";
 // interface Arr {
@@ -64,8 +65,10 @@ function App() {
             }
           >
             <Route path="/Profile" element={<Profile />} />
-            <Route path="/Logout" element={<Logout />} />
+            <Route path="/Redirect" element={<Redirect />} />
+            <Route path="/Redirect" element={<Logout />} />
             <Route path="/Products" element={<Products />} />
+            <Route path="/Pagenf" element={<Pagenf />} />
             <Route path="*" element={<Pagenf />} />
 
           </Route>

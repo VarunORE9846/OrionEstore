@@ -1,4 +1,5 @@
-// import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 import login from "../Images/login.jpg";
 // import axios from "axios";
 import Api from "../Components/Api";
@@ -12,6 +13,8 @@ import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../Store/Reducers/authSlice";
 import {
   Box,
   CssBaseline,
@@ -25,11 +28,36 @@ interface Log {
   email: string;
   password: string;
 }
+interface Props {
+  fullName: string;
+}
 
 export const Login: React.FC = () => {
   const defaulttheme = createTheme();
   const navigate = useNavigate();
-  const handleLogin = (data: { email: string; password:string; }) => {
+  const dispatch = useDispatch();
+  const [user, setUser] = useState<Props | null>(null);
+  const [token, setToken] = useState<Props | null>(null);
+  useEffect(() => {
+    const data = localStorage.getItem("Loggedinuser");
+    if (data) {
+      const user = JSON.parse(data);
+      const decode = jwtDecode(user.accessToken);
+      setToken(user.accessToken);
+      setUser(decode as Props);
+    }
+  }, []);
+  console.log("user details", user);
+  
+  const handleLogin = (data: { email: string; password: string }) => {
+    setTimeout(() => {
+      dispatch(
+        loginSuccess({
+          user: user?.fullName,
+          token: token,
+        })
+      );
+    }, 1000);
     return Api.post("/tokens", data);
   };
 

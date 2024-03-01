@@ -188,7 +188,7 @@ const ResponsiveAppBar = () => {
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">
                       <Link
-                        to="/Home"
+                        to="/Redirect"
                         style={{ textDecoration: "none", color: "Blue" }}
                         onClick={logout}
                       >
