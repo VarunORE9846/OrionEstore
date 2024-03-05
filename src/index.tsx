@@ -4,7 +4,10 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import {store} from './Store/store'
+import {store} from './Store/store';
+store.subscribe(() => {
+  console.log('Updated store data:', store.getState());
+});
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

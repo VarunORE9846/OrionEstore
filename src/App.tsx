@@ -11,32 +11,15 @@ import { Login } from "./Auth/Login";
 import { Signup } from "./Auth/Signup";
 import { Profile } from "./Pages/Profile";
 import { Products } from "./Pages/Products";
+import { Brands } from "./Pages/Brands";
 import { Logout } from "@mui/icons-material";
 import  {Pagenf}  from "./Pages/Pagenf";
-// import { useState, useEffect } from "react";
 import PrivateRoutes from "./Utils/PrivateRoutes";
 import PublicRoutes from "./Utils/PublicRoutes";
 import { Redirect } from "./Pages/Redirect";
 
-// import { UserConfirm } from "./Pages/UserConfirm";
-// interface Arr {
-//   isUser: string;
-//   accessToken: string;
-//   refreshToken: string;
-// }
-function App() {
-  // const [isAuth, setIsAuth] = useState<null | boolean>(false);
-  // const [login, setLogin] = useState<Array<Arr>>();
-  // const location = useLocation();
 
-  // useEffect(() => {
-  //   const user = localStorage.getItem("Loggedinuser");
-  //   if (user) {
-  //     const userData = JSON.parse(user);
-  //     setLogin(userData);
-  //     setIsAuth(true);
-  //   }
-  // }, [location.pathname]);
+function App() {
 
   return (
     <div>
@@ -69,6 +52,7 @@ function App() {
             <Route path="/Redirect" element={<Logout />} />
             <Route path="/Products" element={<Products />} />
             <Route path="/Pagenf" element={<Pagenf />} />
+            <Route path="/Brands" element={<Brands />} />
             <Route path="*" element={<Pagenf />} />
 
           </Route>

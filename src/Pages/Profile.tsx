@@ -1,26 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
+import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../Store/RootState";
 import "../Components/Profile.css";
-interface Props {
-  fullName: string;
-}
 
-export const Profile: React.FC = () => {
-  const [user, setUser] = useState<Props | null>(null);
-  useEffect(() => {
-    const data = localStorage.getItem("Loggedinuser");
-    if (data) {
-      const user = JSON.parse(data);
-      const decode = jwtDecode(user.accessToken);
-      //  setUser(decode as DT | ReactNode);
-      setUser(decode as Props);
-    }
-  }, []);
-  console.log("user details", user);
-  if (!user) {
-    return <h5>Loading...</h5>;
-  }
 
+export const Profile = () => {
+
+  const username=useSelector((state:RootState)=>state.auth.user)
+  console.log("fullname from profile page", username);
   return (
     <div className="container mt-5">
       <div className="row d-flex justify-content-center">
@@ -39,7 +26,7 @@ export const Profile: React.FC = () => {
               <span className="bg-success p-1 px-4 rounded text-white">
                 Pro
               </span>
-              <h5 className="mt-2 mb-0">{user.fullName}</h5>
+              <h5 className="mt-2 mb-0">{username}</h5>
               <span>MERN STACK Developer</span>
 
               <div className="fs-15 mt-1">

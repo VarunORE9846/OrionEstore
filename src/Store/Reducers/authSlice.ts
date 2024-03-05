@@ -1,22 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
+interface st{
+  isAuth: boolean;
+  user: string;
+  token: string;
+}
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     isAuth: false,
-    user: null,
-    token: null,
+    user: "",
+    token: "",
   },
+
   reducers: {
-    loginSuccess(state, action) {
+    loginSuccess(state:st, action) {
       state.isAuth = true;
       state.user = action.payload.user;
       state.token = action.payload.token;
       console.log("Login success reducer is called ");
     },
-    logout(state){
+    logout(state:st){
         state.isAuth=false;
-        state.user=null;
-        state.token=null;
+        state.user="";
+        state.token="";
     }
   },
 });

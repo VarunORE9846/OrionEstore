@@ -11,3 +11,32 @@
   font-size: 1.4rem;
   color: #b22b27;
 }
+html,
+body,
+.intro {
+  height: 100%;
+}
+
+table td,
+table th {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card {
+  border-radius: .5rem;
+}
+
+.table-scroll {
+  border-radius: .5rem;
+}
+
+thead {
+  top: 0;
+  position: sticky;
+}
+.col-12{
+  margin-left: -20%;
+  width: 100%;
+}

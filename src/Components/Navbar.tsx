@@ -11,12 +11,10 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-
-// import AdbIcon from "@mui/icons-material/Adb";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 const pages = ["Home", "LogIn", "SignUp"];
-const pages2 = ["Products", "Profile"];
+const pages2 = ["Products", "Profile","Brands"];
 interface Arr {
   isUser: string;
   accessToken: string;
@@ -28,17 +26,15 @@ const ResponsiveAppBar = () => {
   const location = useLocation();
   const Navigate = useNavigate();
   const logout = () => {
-    // e.preventDefault();
-    localStorage.removeItem("Loggedinuser")
+    localStorage.removeItem("LoggedInUser")
       Navigate("/Home");
       setIsUser(false);
     
   };
   React.useEffect(() => {
-    const user = localStorage.getItem("Loggedinuser");
+    const user = localStorage.getItem("LoggedInUser");
     if (user) {
       const userData = JSON.parse(user);
-      console.log(userData);
       setLoggedin(userData);
       setIsUser(true);
     }
@@ -68,7 +64,6 @@ const ResponsiveAppBar = () => {
     <AppBar position="static" style={{ background: "#66bb6a" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <ShoppingCartIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 2 }}
           />

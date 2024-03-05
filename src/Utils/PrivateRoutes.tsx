@@ -4,7 +4,7 @@ interface CH{
     children:ReactNode
 }
 const PrivateRoutes:React.FC<CH> = ({children}) => {
-    const auth=localStorage.getItem("Loggedinuser");
+    const auth=localStorage.getItem("LoggedInUser");
     if(!auth){
         return <Navigate to="/Login" replace/>
     }

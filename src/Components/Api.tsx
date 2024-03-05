@@ -3,10 +3,16 @@ import axios from "axios";
 const api = axios.create({
   baseURL: "https://orionapi0.customerdemourl.com/api",
 });
+
 api.interceptors.request.use(
   (config) => {
-        config.headers['Tenant']='root';
-    
+    const user = localStorage.getItem("LoggedInUser");
+    if (user) {
+      const userData = JSON.parse(user);
+      config.headers.Authorization = `Bearer ${userData.accessToken}`;
+    }
+    config.headers["tenant"] = "root";
+
     return config;
   },
   (error) => {
@@ -22,6 +28,5 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 
 export default api;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { jwtDecode } from "jwt-decode";
 import login from "../Images/login.jpg";
 // import axios from "axios";
@@ -28,36 +28,14 @@ interface Log {
   email: string;
   password: string;
 }
-interface Props {
-  fullName: string;
-}
+
 
 export const Login: React.FC = () => {
   const defaulttheme = createTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [user, setUser] = useState<Props | null>(null);
-  const [token, setToken] = useState<Props | null>(null);
-  useEffect(() => {
-    const data = localStorage.getItem("Loggedinuser");
-    if (data) {
-      const user = JSON.parse(data);
-      const decode = jwtDecode(user.accessToken);
-      setToken(user.accessToken);
-      setUser(decode as Props);
-    }
-  }, []);
-  console.log("user details", user);
-  
+
   const handleLogin = (data: { email: string; password: string }) => {
-    setTimeout(() => {
-      dispatch(
-        loginSuccess({
-          user: user?.fullName,
-          token: token,
-        })
-      );
-    }, 1000);
     return Api.post("/tokens", data);
   };
 
@@ -127,7 +105,7 @@ export const Login: React.FC = () => {
               <Formik
                 initialValues={initialValues}
                 validationSchema={Logins}
-                onSubmit={async (values: Log, { setSubmitting, resetForm }) => {
+                onSubmit={async (values: Log, { setSubmitting }) => {
                   const payload: Log = {
                     email: values.email,
                     password: values.password,
@@ -135,19 +113,27 @@ export const Login: React.FC = () => {
                   try {
                     const loginresponse = await handleLogin(payload);
                     console.log("loginresponse from login.tsx:", loginresponse);
+
                     const loggedinuser = {
                       isUser: true,
                       accessToken: loginresponse.data.token,
                       refreshToken: loginresponse.data.refreshToken,
                     };
                     localStorage.setItem(
-                      "Loggedinuser",
+                      "LoggedInUser",
                       JSON.stringify(loggedinuser)
                     );
 
                     if (loginresponse.status === 200) {
+                      const decode: any = jwtDecode(loggedinuser.accessToken);
+                      dispatch(
+                        loginSuccess({
+                          user: decode?.fullName,
+                          token: loggedinuser.accessToken,
+                        })
+                      );
                       toast.success("Login Successful");
-                      console.log(loginresponse.data);
+                      console.log("login response data", loginresponse.data);
                       setTimeout(() => {
                         navigate("/Profile");
                       }, 2000);
