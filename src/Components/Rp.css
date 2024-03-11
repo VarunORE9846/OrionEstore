@@ -6,3 +6,11 @@
     color: red;
   }
   
+  .form-control{
+    display: flex;
+    flex-direction: column;
+    width: 10vw;
+  }
+  .form-group{
+    margin-right:10px ;
+  }

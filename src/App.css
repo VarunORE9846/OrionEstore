@@ -25,18 +25,40 @@ table th {
 }
 
 .card {
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 
 .table-scroll {
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 
 thead {
   top: 0;
   position: sticky;
 }
-.col-12{
+.col-12 {
   margin-left: -20%;
   width: 100%;
+}
+.form-group {
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  margin-left: -7%;
+  margin-top: 1%;
+}
+.form-control {
+  width: 20vw;
+}
+
+.hor{
+  width: 100vw;
+  height:90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #24aa5c;
+}
+.pagination{
+  margin-left: 82%;
 }

@@ -1,39 +1,73 @@
 import { useEffect, useState } from "react";
 import Api from "../Components/Api";
+import MyModal from "../Components/MyModal";
 import "../App.css";
+import Dropdown from "react-bootstrap/Dropdown";
+import { Pagination } from "../Components/Pagination";
 interface ND {
   name: string;
   description: string;
 }
+// interface PN{
+//   pageNumber: number;
+//   setPageNumber:React.Dispatch<React.SetStateAction<number>>;
+// }
+// interface PS{
+//   pageSize:number;
+//   setPageSize:React.Dispatch<React.SetStateAction<number>>;
+// }
 export const Brands = () => {
   const [Brand, setBrand] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(7);
+  // const indexOfLastRecord = currentPage * recordsPerPage;
+  // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const [response, setResponse] = useState([]);
-
+  // const currentRecords = response.slice(indexOfFirstRecord, indexOfLastRecord);
+  const nPages = Math.ceil(response.length / recordsPerPage);
   useEffect(() => {
     handleBrand();
-  }, []);
+  }, [currentPage, recordsPerPage]);
 
   const handleBrand = async () => {
     try {
       const payload = {
         keyword: Brand || "",
-        // pageNumber: 2,
-        // pageSize: 10,
+        pageNumber: Brand === "" ? currentPage : setCurrentPage(1),
+        pageSize: recordsPerPage,
       };
       const res = await Api.post("/v1/brands/search", payload);
+      // setResponse(res.data.data);
       setResponse(res.data.data);
+      console.log("response ", response);
     } catch (error) {
       console.error("Error from API:", error);
     }
   };
-  console.log("====================================");
-  console.log(response);
-  console.log("====================================");
+  const AscSort = () => {
+    const copyArray = [...response];
+    const sort = copyArray.sort((a: any, b: any) =>
+      a.name.localeCompare(b.name)
+    );
+    setResponse(sort);
+    console.log("Ascending sort", sort);
+  };
+  const DscSort = () => {
+    const copyArray = [...response];
+    //  const dsort=copyArray.reverse();
+    const dsort = copyArray.sort((a: any, b: any) =>
+      b.name.localeCompare(a.name)
+    );
+    setResponse(dsort);
+    console.log("Dscending sort", dsort);
+  };
   return (
     <>
       {/* <form onSubmit={handleSubmit}> */}
       <div className="form-group">
-        <label htmlFor="inputfield">Brand Name</label>
+        <label htmlFor="inputfield">
+          <h4>Brand Name</h4>
+        </label>
         <input
           type="text"
           className="form-control"
@@ -41,14 +75,30 @@ export const Brands = () => {
           placeholder="Enter Brand Name"
           onChange={(e) => setBrand(e.target.value)}
         />
+        <button type="button" onClick={handleBrand} className="btn btn-primary">
+          Search
+        </button>
+        {<MyModal />}
+        <Dropdown>
+          <Dropdown.Toggle variant="warning" id="dropdown-basic">
+            Dropdown Button
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item href="#/action-1" onClick={AscSort}>
+              Ascending{" "}
+            </Dropdown.Item>
+            <Dropdown.Item href="#/action-2" onClick={DscSort}>
+              Descending{" "}
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
-      <button type="button" onClick={handleBrand} className="btn btn-primary">
-        Search
-      </button>
+
       {/* </form> */}
       <section className="intro">
-        <div className="bg-image h-100" style={{ backgroundColor: "#f5f7fa" }}>
-          <div className="mask d-flex align-items-center h-100">
+        <div className="bg-image h-auto" style={{ backgroundColor: "#f5f7fa" }}>
+          <div className="mask d-flex align-items-center h-auto">
             <div className="container">
               <div className="row justify-content-center">
                 <div className="col-12">
@@ -57,7 +107,7 @@ export const Brands = () => {
                       <div
                         className="table-responsive table-scroll"
                         data-mdb-perfect-scrollbar="true"
-                        style={{ position: "relative", height: "700px" }}
+                        style={{ position: "relative", height: "auto" }}
                       >
                         <table className="table table-dark mb-0">
                           <thead style={{ backgroundColor: "#393939" }}>
@@ -89,6 +139,11 @@ export const Brands = () => {
           </div>
         </div>
       </section>
+      <Pagination
+        nPages={nPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 };

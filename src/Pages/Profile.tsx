@@ -1,13 +1,11 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../Store/RootState";
 import "../Components/Profile.css";
 
-
 export const Profile = () => {
+  const username = useSelector((state: RootState) => state.auth.user);
+ 
 
-  const username=useSelector((state:RootState)=>state.auth.user)
-  console.log("fullname from profile page", username);
   return (
     <div className="container mt-5">
       <div className="row d-flex justify-content-center">
@@ -21,7 +19,6 @@ export const Profile = () => {
                 alt=""
               />
             </div>
-
             <div className="text-center mt-3">
               <span className="bg-success p-1 px-4 rounded text-white">
                 Pro

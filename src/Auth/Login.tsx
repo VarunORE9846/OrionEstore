@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import login from "../Images/login.jpg";
 // import axios from "axios";
+// import { Hourglass } from "react-loader-spinner";
 import Api from "../Components/Api";
 import "../App.css";
 import { Logins } from "../Schemas/Logins";
@@ -29,12 +30,12 @@ interface Log {
   password: string;
 }
 
-
 export const Login: React.FC = () => {
   const defaulttheme = createTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  // const [sb, setSb] = useState(false);
+  const [submitted,setSubmitted]=useState(false);
   const handleLogin = (data: { email: string; password: string }) => {
     return Api.post("/tokens", data);
   };
@@ -77,6 +78,7 @@ export const Login: React.FC = () => {
               backgroundPosition: "center",
             }}
           />
+
           <Grid
             item
             xs={12}
@@ -113,7 +115,6 @@ export const Login: React.FC = () => {
                   try {
                     const loginresponse = await handleLogin(payload);
                     console.log("loginresponse from login.tsx:", loginresponse);
-
                     const loggedinuser = {
                       isUser: true,
                       accessToken: loginresponse.data.token,
@@ -132,12 +133,13 @@ export const Login: React.FC = () => {
                           token: loggedinuser.accessToken,
                         })
                       );
-                      toast.success("Login Successful");
                       console.log("login response data", loginresponse.data);
+                      toast.success("Login Successfull");
                       setTimeout(() => {
                         navigate("/Profile");
-                      }, 2000);
+                      }, 2500);
                       setSubmitting(false);
+                      setSubmitted(true);     
                     }
                   } catch (error: any) {
                     toast.error("Invalid Credentials");
@@ -151,8 +153,8 @@ export const Login: React.FC = () => {
                   touched,
                   handleChange,
                   handleSubmit,
-
                   isSubmitting,
+
                   /* and other goodies */
                 }) => (
                   <Box
@@ -197,10 +199,15 @@ export const Login: React.FC = () => {
                       fullWidth
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || submitted }
                     >
                       Log In
                     </Button>
+                    {/* {sb && (
+                      <div className="hor">
+                        <Hourglass  height={70} />
+                      </div>
+                    )} */}
                     <Grid container>
                       <Grid item>
                         <Link href="Signup" variant="body2">
@@ -219,3 +226,8 @@ export const Login: React.FC = () => {
     </>
   );
 };
+// {sb && (
+//   <div className="bounce">
+//     <BounceLoader color="#24aa5c" />
+//   </div>
+// )}
