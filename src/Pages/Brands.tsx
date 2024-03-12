@@ -8,18 +8,11 @@ interface ND {
   name: string;
   description: string;
 }
-// interface PN{
-//   pageNumber: number;
-//   setPageNumber:React.Dispatch<React.SetStateAction<number>>;
-// }
-// interface PS{
-//   pageSize:number;
-//   setPageSize:React.Dispatch<React.SetStateAction<number>>;
-// }
+
 export const Brands = () => {
   const [Brand, setBrand] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(7);
+  const [recordsPerPage, setRecordsPerPage] = useState(7);
   // const indexOfLastRecord = currentPage * recordsPerPage;
   // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const [response, setResponse] = useState([]);
@@ -28,7 +21,12 @@ export const Brands = () => {
   useEffect(() => {
     handleBrand();
   }, [currentPage, recordsPerPage]);
-
+  const callTen = () => {
+    setRecordsPerPage(10);
+  };
+  const callTwenty = () => {
+    setRecordsPerPage(20);
+  };
   const handleBrand = async () => {
     try {
       const payload = {
@@ -65,35 +63,68 @@ export const Brands = () => {
     <>
       {/* <form onSubmit={handleSubmit}> */}
       <div className="form-group">
-        <label htmlFor="inputfield">
-          <h4>Brand Name</h4>
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="inputfield"
-          placeholder="Enter Brand Name"
-          onChange={(e) => setBrand(e.target.value)}
-        />
-        <button type="button" onClick={handleBrand} className="btn btn-primary">
-          Search
-        </button>
-        {<MyModal />}
-        <Dropdown>
-          <Dropdown.Toggle variant="warning" id="dropdown-basic">
-            Dropdown Button
-          </Dropdown.Toggle>
+        <div className="Brandpanell">
+          <label htmlFor="inputfield">
+            <h4>Brand Name</h4>
+          </label>
+        </div>
+        <div className="Brandpanell">
+          <input
+            type="text"
+            className="form-control"
+            id="inputfield"
+            placeholder="Enter Brand Name"
+            onChange={(e) => setBrand(e.target.value)}
+          />
+        </div>
+        <div className="Brandpanell">
+          <button
+            type="button"
+            onClick={handleBrand}
+            className="btn btn-primary"
+          >
+            Search
+          </button>
+        </div>
+        <div className="Brandpanel">{<MyModal />}</div>
+        <div className="Brandpanel">
+          <Dropdown>
+            <Dropdown.Toggle variant="warning" id="dropdown-basic">
+              Order
+            </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            <Dropdown.Item href="#/action-1" onClick={AscSort}>
-              Ascending{" "}
-            </Dropdown.Item>
-            <Dropdown.Item href="#/action-2" onClick={DscSort}>
-              Descending{" "}
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-1" onClick={AscSort}>
+                Ascending{" "}
+              </Dropdown.Item>
+              <Dropdown.Item href="#/action-2" onClick={DscSort}>
+                Descending{" "}
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+        <div className="Brandpanel">
+          <Dropdown>
+            <Dropdown.Toggle variant="danger" id="dropdown-basic">
+              Amount
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-3" onClick={callTen}>
+                10 Records
+              </Dropdown.Item>
+              <Dropdown.Item href="#/action-4" onClick={callTwenty}>
+                20 Records
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
       </div>
+      <Pagination
+        nPages={nPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
 
       {/* </form> */}
       <section className="intro">
@@ -139,11 +170,6 @@ export const Brands = () => {
           </div>
         </div>
       </section>
-      <Pagination
-        nPages={nPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
     </>
   );
 };
