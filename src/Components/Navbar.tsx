@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 const pages = ["Home", "LogIn", "SignUp"];
-const pages2 = ["Products", "Profile","Brands"];
+const pages2 = ["Products", "Profile", "Brands", "CheckOut"];
 interface Arr {
   isUser: string;
   accessToken: string;
@@ -26,10 +26,9 @@ const ResponsiveAppBar = () => {
   const location = useLocation();
   const Navigate = useNavigate();
   const logout = () => {
-    localStorage.removeItem("LoggedInUser")
-      Navigate("/Home");
-      setIsUser(false);
-    
+    localStorage.removeItem("LoggedInUser");
+    Navigate("/Home");
+    setIsUser(false);
   };
   React.useEffect(() => {
     const user = localStorage.getItem("LoggedInUser");
@@ -130,20 +129,40 @@ const ResponsiveAppBar = () => {
               </Box>
 
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                {pages2.map((page2) => (
-                  <Button
-                    key={page2}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
+                {/* {pages2
+                  .filter((page2) => page2 !== "CheckOut")
+                  .map((page2) => (
                     <Link
-                      style={{ textDecoration: "none", color: "white" }}
+                      style={{
+                        textDecoration: "none",
+                        color: "white",
+                        display: "block",
+                        margin: "10px",
+                        fontSize: "17px",
+                      }}
                       to={`/${page2}`}
+                      key={page2}
+                      onClick={handleCloseNavMenu}
+                    >
+                      {page2}
+                    </Link> */}
+                     {pages2
+                  .map((page2) => (
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        color: "white",
+                        display: "block",
+                        margin: "10px",
+                        fontSize: "17px",
+                      }}
+                      to={`/${page2}`}
+                      key={page2}
+                      onClick={handleCloseNavMenu}
                     >
                       {page2}
                     </Link>
-                  </Button>
-                ))}
+                  ))}
               </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
@@ -170,16 +189,6 @@ const ResponsiveAppBar = () => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  {/* <MenuItem onClick={handleCloseUserMenu}>
-                   <Typography textAlign="center">
-                     <Link
-                       style={{ textDecoration: "none", color: "black" }}
-                       to={"/Profile"}
-                     >
-                       Profile
-                     </Link>
-                   </Typography>
-                 </MenuItem> */}
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">
                       <Link

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import login from "../Images/login.jpg";
 // import axios from "axios";
@@ -25,32 +25,22 @@ import {
   Button,
   Link,
 } from "@mui/material";
+import { error } from "console";
 interface Log {
   email: string;
   password: string;
 }
 
-export const Login: React.FC = () => {
+export const Login = () => {
   const defaulttheme = createTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const [sb, setSb] = useState(false);
-  const [submitted,setSubmitted]=useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const handleLogin = (data: { email: string; password: string }) => {
     return Api.post("/tokens", data);
   };
 
-  // const handleLogin = (data: { email: string; password: string }) => {
-  //   return axios.post(
-  //     "https://orionapi0.customerdemourl.com/api/tokens",
-  //     data,
-  //     {
-  //       headers: {
-  //         tenant: "root",
-  //       },
-  //     }
-  //   );
-  // };
 
   const initialValues: Log = {
     email: "",
@@ -131,6 +121,7 @@ export const Login: React.FC = () => {
                         loginSuccess({
                           user: decode?.fullName,
                           token: loggedinuser.accessToken,
+                          refreshToken:loggedinuser.refreshToken,
                         })
                       );
                       console.log("login response data", loginresponse.data);
@@ -139,7 +130,7 @@ export const Login: React.FC = () => {
                         navigate("/Profile");
                       }, 2500);
                       setSubmitting(false);
-                      setSubmitted(true);     
+                      setSubmitted(true);
                     }
                   } catch (error: any) {
                     toast.error("Invalid Credentials");
@@ -199,7 +190,7 @@ export const Login: React.FC = () => {
                       fullWidth
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
-                      disabled={isSubmitting || submitted }
+                      disabled={isSubmitting || submitted}
                     >
                       Log In
                     </Button>

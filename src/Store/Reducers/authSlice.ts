@@ -3,6 +3,7 @@ interface st{
   isAuth: boolean;
   user: string;
   token: string;
+  refreshToken: string;
 }
 const authSlice = createSlice({
   name: "auth",
@@ -10,6 +11,7 @@ const authSlice = createSlice({
     isAuth: false,
     user: "",
     token: "",
+    refreshToken: "",
   },
 
   reducers: {
@@ -17,12 +19,14 @@ const authSlice = createSlice({
       state.isAuth = true;
       state.user = action.payload.user;
       state.token = action.payload.token;
+      state.refreshToken = action.payload.refreshToken;
       console.log("Login success reducer is called ");
     },
     logout(state:st){
         state.isAuth=false;
         state.user="";
         state.token="";
+        state.refreshToken="";
     }
   },
 });

@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import Api from "../Components/Api";
 import MyModal from "../Components/MyModal";
+import { useDispatch } from "react-redux";
+import DeleteIcon from '@mui/icons-material/Delete';
 import "../App.css";
 import Dropdown from "react-bootstrap/Dropdown";
-import { Pagination } from "../Components/Pagination";
+// import { Pagination } from "../Components/Pagination";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import { Button } from "@mui/material";
+import { brandData as brandDataAction } from "../Store/Reducers/brandSlicee";
+
 interface ND {
+  id: string;
   name: string;
   description: string;
 }
@@ -13,35 +21,40 @@ export const Brands = () => {
   const [Brand, setBrand] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(7);
+  const [totalCount, setTotalCount] = useState(0);
+  const dispatch = useDispatch();
   // const indexOfLastRecord = currentPage * recordsPerPage;
   // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const [response, setResponse] = useState([]);
   // const currentRecords = response.slice(indexOfFirstRecord, indexOfLastRecord);
-  const nPages = Math.ceil(response.length / recordsPerPage);
-  useEffect(() => {
-    handleBrand();
-  }, [currentPage, recordsPerPage]);
+  const nPages = Math.ceil(totalCount / recordsPerPage);
   const callTen = () => {
     setRecordsPerPage(10);
   };
   const callTwenty = () => {
     setRecordsPerPage(20);
   };
+  useEffect(() => {
+    handleBrand();
+  }, [currentPage, recordsPerPage]);
   const handleBrand = async () => {
     try {
       const payload = {
         keyword: Brand || "",
         pageNumber: Brand === "" ? currentPage : setCurrentPage(1),
         pageSize: recordsPerPage,
+        // totalCount:22,
       };
       const res = await Api.post("/v1/brands/search", payload);
-      // setResponse(res.data.data);
       setResponse(res.data.data);
-      console.log("response ", response);
+      setTotalCount(res.data.totalCount);
     } catch (error) {
       console.error("Error from API:", error);
     }
+    console.log("response------", response);
   };
+  const bres:any=response;
+dispatch(brandDataAction(bres as ND))
   const AscSort = () => {
     const copyArray = [...response];
     const sort = copyArray.sort((a: any, b: any) =>
@@ -59,13 +72,20 @@ export const Brands = () => {
     setResponse(dsort);
     console.log("Dscending sort", dsort);
   };
+  const handlePagination = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setCurrentPage(value);
+    console.log("page value", value);
+  };
   return (
     <>
       {/* <form onSubmit={handleSubmit}> */}
       <div className="form-group">
         <div className="Brandpanell">
           <label htmlFor="inputfield">
-            <h4>Brand Name</h4>
+            <h4>Brand Name:</h4>
           </label>
         </div>
         <div className="Brandpanell">
@@ -86,6 +106,7 @@ export const Brands = () => {
             Search
           </button>
         </div>
+
         <div className="Brandpanel">{<MyModal />}</div>
         <div className="Brandpanel">
           <Dropdown>
@@ -106,7 +127,7 @@ export const Brands = () => {
         <div className="Brandpanel">
           <Dropdown>
             <Dropdown.Toggle variant="danger" id="dropdown-basic">
-              Amount
+              Quantity
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -120,11 +141,6 @@ export const Brands = () => {
           </Dropdown>
         </div>
       </div>
-      <Pagination
-        nPages={nPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
 
       {/* </form> */}
       <section className="intro">
@@ -146,6 +162,7 @@ export const Brands = () => {
                               <th scope="col">ID</th>
                               <th scope="col">Name</th>
                               <th scope="col">Description</th>
+                              <th scope="col">Remove</th>
                             </tr>
                           </thead>
                           {response &&
@@ -156,6 +173,7 @@ export const Brands = () => {
                                     <td>{i + 1}</td>
                                     <td>{e.name}</td>
                                     <td>{e.description}</td>
+                                    <td><Button><DeleteIcon/></Button></td>
                                   </tr>
                                 </tbody>
                               );
@@ -170,6 +188,14 @@ export const Brands = () => {
           </div>
         </div>
       </section>
+      <Stack className="Pagination" spacing={2}>
+        <Pagination
+          count={nPages}
+          onChange={handlePagination}
+          page={currentPage}
+          color="secondary"
+        />
+      </Stack>
     </>
   );
 };

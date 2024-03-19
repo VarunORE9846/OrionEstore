@@ -17,6 +17,7 @@ import  {Pagenf}  from "./Pages/Pagenf";
 import PrivateRoutes from "./Utils/PrivateRoutes";
 import PublicRoutes from "./Utils/PublicRoutes";
 import { Redirect } from "./Pages/Redirect";
+import { CheckOut } from "./Pages/CheckOut";
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
             <Route path="/Products" element={<Products />} />
             <Route path="/Pagenf" element={<Pagenf />} />
             <Route path="/Brands" element={<Brands />} />
+            <Route path="/CheckOut" element={<CheckOut />} />
             <Route path="*" element={<Pagenf />} />
 
           </Route>
