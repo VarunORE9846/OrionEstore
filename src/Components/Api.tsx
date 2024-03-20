@@ -89,7 +89,7 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 const customFetch = axios.create({
-  baseURL: "https://orionapi0.customerdemourl.com/api",
+  baseURL: "https://weewildonesdevapi.essentialdemo.com/api",
   headers: {
     "Content-Type": "application/json",
   },

@@ -20,7 +20,10 @@ const MyModal = () => {
       setResponse(res.data);
       console.log("response from create brand api:",response)
       if (res.status === 200) {
-        toast.success("Brand is created successfully");
+       const success= toast.success("Brand is created successfully");
+       setTimeout(()=>{
+          toast.dismiss(success);
+       },1300);
       }
     } catch (error) {
       console.log("error from create brand is", error);

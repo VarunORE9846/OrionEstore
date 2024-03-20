@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Api from "../Components/Api";
 import MyModal from "../Components/MyModal";
 import { useDispatch } from "react-redux";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import "../App.css";
 import Dropdown from "react-bootstrap/Dropdown";
 // import { Pagination } from "../Components/Pagination";
@@ -10,7 +10,10 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Button } from "@mui/material";
 import { brandData as brandDataAction } from "../Store/Reducers/brandSlicee";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import CreateIcon from "@mui/icons-material/Create";
+import Update from "../Components/Update";
 interface ND {
   id: string;
   name: string;
@@ -18,6 +21,7 @@ interface ND {
 }
 
 export const Brands = () => {
+  const [toggle, setToggle] = useState(false);
   const [Brand, setBrand] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(7);
@@ -37,6 +41,9 @@ export const Brands = () => {
   useEffect(() => {
     handleBrand();
   }, [currentPage, recordsPerPage]);
+  useEffect(() => {
+    dispatch(brandDataAction(bres as ND));
+  }, [response, dispatch]);
   const handleBrand = async () => {
     try {
       const payload = {
@@ -53,8 +60,7 @@ export const Brands = () => {
     }
     console.log("response------", response);
   };
-  const bres:any=response;
-dispatch(brandDataAction(bres as ND))
+  const bres: any = response;
   const AscSort = () => {
     const copyArray = [...response];
     const sort = copyArray.sort((a: any, b: any) =>
@@ -79,9 +85,51 @@ dispatch(brandDataAction(bres as ND))
     setCurrentPage(value);
     console.log("page value", value);
   };
+  const handleDelete = (Id: string) => {
+    // const params = { id: Id };
+    Api.delete(`/v1/brands/${Id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          setResponse((prevResponse) =>
+            prevResponse.filter((item: any) => item.id !== Id)
+          );
+          const delfilter = toast.success("Item Deleted Successfully");
+          setTimeout(() => {
+            toast.dismiss(delfilter);
+          }, 1200);
+          console.log("updated or deleted response", response);
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 409) {
+          const error1 = toast.error(
+            "Conflict:cannot delete brand due to associated data"
+          );
+          setTimeout(() => {
+            toast.dismiss(error1);
+          }, 1300);
+        } else {
+          const error2 = toast.error("Error deleting brand");
+          setTimeout(() => {
+            toast.dismiss(error2);
+          }, 1300);
+        }
+      });
+  };
+  const handleModal = () => {
+    setToggle(true);
+    console.log("value of toggle", toggle);
+
+   };
+   const handleClose = () => setToggle(false);
+   const handleShow = () => setToggle(true);
+
+   
+
   return (
     <>
       {/* <form onSubmit={handleSubmit}> */}
+      <Update toggle={toggle} handleClose={handleClose} handleShow={handleShow} />
       <div className="form-group">
         <div className="Brandpanell">
           <label htmlFor="inputfield">
@@ -143,6 +191,7 @@ dispatch(brandDataAction(bres as ND))
       </div>
 
       {/* </form> */}
+
       <section className="intro">
         <div className="bg-image h-auto" style={{ backgroundColor: "#f5f7fa" }}>
           <div className="mask d-flex align-items-center h-auto">
@@ -162,7 +211,8 @@ dispatch(brandDataAction(bres as ND))
                               <th scope="col">ID</th>
                               <th scope="col">Name</th>
                               <th scope="col">Description</th>
-                              <th scope="col">Remove</th>
+                              <th scope="col">Delete</th>
+                              <th scope="col">Update</th>
                             </tr>
                           </thead>
                           {response &&
@@ -173,7 +223,20 @@ dispatch(brandDataAction(bres as ND))
                                     <td>{i + 1}</td>
                                     <td>{e.name}</td>
                                     <td>{e.description}</td>
-                                    <td><Button><DeleteIcon/></Button></td>
+                                    <td>
+                                      <Button
+                                        onClick={() => handleDelete(e.id)}
+                                      >
+                                        <DeleteIcon style={{ color: "red" }} />
+                                      </Button>
+                                    </td>
+                                    <td>
+                                      <Button onClick={handleModal}>
+                                        <CreateIcon
+                                          style={{ color: "green" }}
+                                        />
+                                      </Button>
+                                    </td>
                                   </tr>
                                 </tbody>
                               );

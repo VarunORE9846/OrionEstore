@@ -18,12 +18,14 @@ import PrivateRoutes from "./Utils/PrivateRoutes";
 import PublicRoutes from "./Utils/PublicRoutes";
 import { Redirect } from "./Pages/Redirect";
 import { CheckOut } from "./Pages/CheckOut";
+import { ToastContainer } from "react-bootstrap";
 
 
 function App() {
 
   return (
     <div>
+      <ToastContainer/>
       <Router>
         <ResponsiveAppBar />
         <Routes>
