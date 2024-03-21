@@ -23,6 +23,9 @@ interface Product {
 }
 export const CheckOut = () => {
   const cartProduct = useSelector((state: RootState) => state.product);
+  const totalPrice=()=>{
+    
+  }
   return (
     <section className="h-100" style={{ backgroundColor: "#eee" }}>
       <MDBContainer className="py-5 h-100">
@@ -104,13 +107,13 @@ export const CheckOut = () => {
             })}
             <MDBCard className="mb-4">
               <MDBCardBody className="p-4 d-flex flex-row">
-                <MDBInput
+                {/* <MDBInput
                   label="Discound code"
                   wrapperClass="flex-fill"
                   size="lg"
-                />
+                /> */}
                 <MDBBtn className="ms-3" color="warning" outline size="lg">
-                  Apply
+                  Total
                 </MDBBtn>
               </MDBCardBody>
             </MDBCard>

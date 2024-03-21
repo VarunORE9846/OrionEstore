@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateIcon from "@mui/icons-material/Create";
 import Update from "../Components/Update";
+import Delete from "../Components/Delete";
 interface ND {
   id: string;
   name: string;
@@ -22,10 +23,13 @@ interface ND {
 
 export const Brands = () => {
   const [toggle, setToggle] = useState(false);
+  const [togglee, setTogglee] = useState(false);
   const [Brand, setBrand] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(7);
   const [totalCount, setTotalCount] = useState(0);
+  const [del, setDel] = useState("");
+  const [update, setUpdate] = useState({ id: "", name: "", description: "" });
   const dispatch = useDispatch();
   // const indexOfLastRecord = currentPage * recordsPerPage;
   // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -87,49 +91,37 @@ export const Brands = () => {
   };
   const handleDelete = (Id: string) => {
     // const params = { id: Id };
-    Api.delete(`/v1/brands/${Id}`)
-      .then((response) => {
-        if (response.status === 200) {
-          setResponse((prevResponse) =>
-            prevResponse.filter((item: any) => item.id !== Id)
-          );
-          const delfilter = toast.success("Item Deleted Successfully");
-          setTimeout(() => {
-            toast.dismiss(delfilter);
-          }, 1200);
-          console.log("updated or deleted response", response);
-        }
-      })
-      .catch((error) => {
-        if (error.response.status === 409) {
-          const error1 = toast.error(
-            "Conflict:cannot delete brand due to associated data"
-          );
-          setTimeout(() => {
-            toast.dismiss(error1);
-          }, 1300);
-        } else {
-          const error2 = toast.error("Error deleting brand");
-          setTimeout(() => {
-            toast.dismiss(error2);
-          }, 1300);
-        }
-      });
+    setTogglee(true);
+    setDel(Id);
   };
-  const handleModal = () => {
+  const handleModal = (Id: string, uname: string, udescription: string) => {
+    setUpdate({
+      id: Id,
+      name: uname,
+      description: udescription,
+    });
     setToggle(true);
     console.log("value of toggle", toggle);
-
-   };
-   const handleClose = () => setToggle(false);
-   const handleShow = () => setToggle(true);
-
-   
+  };
+  const handleClose = () => setToggle(false);
+  const handleShow = () => setToggle(true);
 
   return (
     <>
       {/* <form onSubmit={handleSubmit}> */}
-      <Update toggle={toggle} handleClose={handleClose} handleShow={handleShow} />
+      <Update
+        toggle={toggle}
+        handleClose={handleClose}
+        handleShow={handleShow}
+        updateobj={update}
+        setResponse={setResponse}
+      />
+      <Delete
+        togglee={togglee}
+        setResponse={setResponse}
+        setTogglee={setTogglee}
+        del={del}
+      />
       <div className="form-group">
         <div className="Brandpanell">
           <label htmlFor="inputfield">
@@ -155,7 +147,7 @@ export const Brands = () => {
           </button>
         </div>
 
-        <div className="Brandpanel">{<MyModal />}</div>
+        <div className="Brandpanel">{<MyModal/>}</div>
         <div className="Brandpanel">
           <Dropdown>
             <Dropdown.Toggle variant="warning" id="dropdown-basic">
@@ -231,7 +223,15 @@ export const Brands = () => {
                                       </Button>
                                     </td>
                                     <td>
-                                      <Button onClick={handleModal}>
+                                      <Button
+                                        onClick={() =>
+                                          handleModal(
+                                            e.id,
+                                            e.name,
+                                            e.description
+                                          )
+                                        }
+                                      >
                                         <CreateIcon
                                           style={{ color: "green" }}
                                         />

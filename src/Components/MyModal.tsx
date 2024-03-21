@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import Api from "../Components/Api";
@@ -10,25 +10,47 @@ const MyModal = () => {
   const [response, setResponse] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleAdd = async () => {
-    try {
-      const payload = {
-        name: name || "",
-        description: description || "",
-      };
-      const res = await Api.post("/v1/brands", payload);
-      setResponse(res.data);
-      console.log("response from create brand api:",response)
-      if (res.status === 200) {
-       const success= toast.success("Brand is created successfully");
-       setTimeout(()=>{
-          toast.dismiss(success);
-       },1300);
-      }
-    } catch (error) {
-      console.log("error from create brand is", error);
-      toast.error("User is not authorized");
-    }
+  const handleAdd = () => {
+    // try {
+    //   const payload = {
+    //     name: name || "",
+    //     description: description || "",
+    //   };
+    //   const res = await Api.post("/v1/brands", payload);
+    //   console.log("response from create brand api:",response)
+    //   if (res.status === 200) {
+    //     setResponse(res.data);
+    //    const success= toast.success("Brand is created successfully");
+    //    setTimeout(()=>{
+    //       toast.dismiss(success);
+    //    },1300);
+    //    handleClose();
+    //   }
+    // } catch (error) {
+    //   console.log("error from create brand is", error);
+    //   toast.error("User is not authorized");
+    // }
+    const payload = {
+      name: name || "",
+      description: description || "",
+    };
+
+    Api.post("/v1/brands", payload)
+      .then((response) => {
+        if (response.status === 200) {
+             setResponse((prevState:any)=>prevState.push(response.data));
+            console.log("create response------",response);
+          const success = toast.success("Brand is created successfully");
+          setTimeout(() => {
+            toast.dismiss(success);
+          }, 1300);
+          handleClose();
+        }
+      })
+      .catch((error) => {
+        console.log("error from create brand is", error);
+        toast.error("User is not authorized");
+      });
     console.log("Response from Api", response);
   };
   return (

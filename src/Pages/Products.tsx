@@ -76,6 +76,7 @@ export const Products = () => {
   };
   return (
     <>
+      <ToastContainer style={{ width: 340 }} />
       <div>
         <h1>List of Products</h1>
         <div className="Cardd">
@@ -119,7 +120,6 @@ export const Products = () => {
                         onClick={() => addToCart(e)}
                       >
                         Add to Cart
-                        <ToastContainer style={{ width: 340 }} />
                       </Button>
                     </Card.Text>
                   </Card.Body>
