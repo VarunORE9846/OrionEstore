@@ -4,7 +4,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { store } from "./Store/store";
+import { store,persistor } from "./Store/store";
+import { PersistGate } from "redux-persist/integration/react";
+
 store.subscribe(() => {
   console.log("Updated store data:", store?.getState());
 });
@@ -15,7 +17,9 @@ const root = ReactDOM?.createRoot(
 root.render(
   <>
     <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <App />
+      </PersistGate>
     </Provider>
   </>
 );

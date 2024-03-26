@@ -24,6 +24,7 @@ import { addToCart as addToCartAction } from "../Store/Reducers/productSlice";
 
 export const Products = () => {
   const [response, setResponse] = useState<any>([]);
+  // const [productName, setProductName] = useState("");
   // const [cart, setCart] = useState<any>([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ export const Products = () => {
   const GetProducts = async () => {
     try {
       const res = await axios.get("https://dummyjson.com/products?limit=15");
+      // const res = await axios.get("https://dummyjson.com/carts");
       const ress = res.data.products.map((response: any) => ({
         ...response,
         quantity: 0,
@@ -43,6 +45,19 @@ export const Products = () => {
     } catch (error) {
       console.log("error recieved", error);
     }
+    //======================================================================================================
+    // const payload = {
+    //   keyword: "" || productName,
+    //   pageNumber: 3,
+    //   pageSize: 7,
+    // };
+    // Api.post("/v1/products/search", payload)
+    //   .then((response) => {
+    //     console.log("response from products API", response);
+    //   })
+    //   .catch((error) => {
+    //     console.log("error from products API", error);
+    //   });
   };
   const inc = (index: number) => {
     const updatedResponse = [...response];

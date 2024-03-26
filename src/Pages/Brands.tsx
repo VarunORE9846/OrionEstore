@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import CreateIcon from "@mui/icons-material/Create";
 import Update from "../Components/Update";
 import Delete from "../Components/Delete";
+import { FidgetSpinner } from "react-loader-spinner";
 interface ND {
   id: string;
   name: string;
@@ -31,6 +32,7 @@ export const Brands = () => {
   const [del, setDel] = useState("");
   const [update, setUpdate] = useState({ id: "", name: "", description: "" });
   const dispatch = useDispatch();
+  const [loadshow, setLoadShow] = useState(false);
   // const indexOfLastRecord = currentPage * recordsPerPage;
   // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const [response, setResponse] = useState([]);
@@ -56,9 +58,11 @@ export const Brands = () => {
         pageSize: recordsPerPage,
         // totalCount:22,
       };
+      setLoadShow(true);
       const res = await Api.post("/v1/brands/search", payload);
       setResponse(res.data.data);
       setTotalCount(res.data.totalCount);
+      setLoadShow(false);
     } catch (error) {
       console.error("Error from API:", error);
     }
@@ -147,7 +151,9 @@ export const Brands = () => {
           </button>
         </div>
 
-        <div className="Brandpanel">{<MyModal/>}</div>
+        <div className="Brandpanel">
+          {<MyModal response={response} setResponse={setResponse} />}
+        </div>
         <div className="Brandpanel">
           <Dropdown>
             <Dropdown.Toggle variant="warning" id="dropdown-basic">
@@ -200,6 +206,16 @@ export const Brands = () => {
                         <table className="table table-dark mb-0">
                           <thead style={{ backgroundColor: "#393939" }}>
                             <tr className="text-uppercase text-success">
+                              {loadshow && (
+                                <FidgetSpinner
+                                  visible={true}
+                                  height="80"
+                                  width="80"
+                                  ariaLabel="fidget-spinner-loading"
+                                  wrapperStyle={{}}
+                                  wrapperClass="fidget-spinner-wrapper"
+                                />
+                              )}
                               <th scope="col">ID</th>
                               <th scope="col">Name</th>
                               <th scope="col">Description</th>
@@ -207,6 +223,7 @@ export const Brands = () => {
                               <th scope="col">Update</th>
                             </tr>
                           </thead>
+
                           {response &&
                             response.map((e: ND, i) => {
                               return (

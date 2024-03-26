@@ -4,7 +4,6 @@ import "../Components/Profile.css";
 
 export const Profile = () => {
   const username = useSelector((state: RootState) => state.auth.user);
- 
 
   return (
     <div className="container mt-5">
@@ -20,11 +19,12 @@ export const Profile = () => {
               />
             </div>
             <div className="text-center mt-3">
+              <h3 className="mt-1 mb-2">{username}</h3>
+
               <span className="bg-success p-1 px-4 rounded text-white">
-                Pro
+                MERN Stack Developer
               </span>
-              <h5 className="mt-2 mb-0">{username}</h5>
-              <span>MERN STACK Developer</span>
+              {/* <span>MERN STACK Developer</span> */}
 
               <div className="fs-15 mt-1">
                 <p className="fonts">

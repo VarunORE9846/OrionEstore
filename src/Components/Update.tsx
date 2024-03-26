@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Api from "../Components/Api";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { brandData } from "../Store/Reducers/brandSlicee";
 const Update = ({ toggle, handleClose, updateobj, setResponse }: any) => {
@@ -57,13 +57,26 @@ const Update = ({ toggle, handleClose, updateobj, setResponse }: any) => {
             toast.dismiss(Updatee);
           }, 1200);
           handleClose();
-        } else {
-          console.log("update failed ,Please try again");
         }
       })
       .catch((error) => {
-        console.error("Error from Update Api", error);
-        console.log("update failed ,Please try again");
+        // if (error.response && error.response.status === 403) {
+        //   console.log("error from Api", error);
+        //   const error1 = toast.error("User is Not Authorized");
+        //   setTimeout(() => {
+        //     toast.dismiss(error1);
+        //   }, 1300);
+        //   handleClose();
+        // }
+        // else{
+        //   console.log("error from Update User Api-----",error)
+        // }
+        console.log("Error from Update Api", error);
+        const error2 = toast.error("User is Not Authorized");
+        setTimeout(() => {
+          toast.dismiss(error2);
+        }, 1300);
+        handleClose();
       });
   };
   // console.log("update component------", toggle);
