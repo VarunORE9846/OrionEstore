@@ -101,7 +101,8 @@ thead {
   width: 100%;
 }
 .checkout {
-  margin-left: 90%;
+  /* margin-top:0%; */
+  margin-left: 95%;
 }
 .Pagination {
   margin-top: 15%;

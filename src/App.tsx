@@ -19,6 +19,7 @@ import PublicRoutes from "./Utils/PublicRoutes";
 import { Redirect } from "./Pages/Redirect";
 import { CheckOut } from "./Pages/CheckOut";
 import { ToastContainer } from "react-bootstrap";
+import { SingleProduct } from "./Pages/SingleProduct";
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
             <Route path="/Pagenf" element={<Pagenf />} />
             <Route path="/Brands" element={<Brands />} />
             <Route path="/CheckOut" element={<CheckOut />} />
+            <Route path="/Products/:id" element={<SingleProduct />} />
             <Route path="*" element={<Pagenf />} />
 
           </Route>

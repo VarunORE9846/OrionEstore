@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 const pages = ["Home", "LogIn", "SignUp"];
-const pages2 = ["Products", "Profile", "Brands", "CheckOut"];
+const pages2 = ["Products", "Profile", "Brands", "CheckOut", "SingleProduct"];
 interface Arr {
   isUser: string;
   accessToken: string;
@@ -129,24 +129,9 @@ const ResponsiveAppBar = () => {
               </Box>
 
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                {/* {pages2
-                  .filter((page2) => page2 !== "CheckOut")
-                  .map((page2) => (
-                    <Link
-                      style={{
-                        textDecoration: "none",
-                        color: "white",
-                        display: "block",
-                        margin: "10px",
-                        fontSize: "17px",
-                      }}
-                      to={`/${page2}`}
-                      key={page2}
-                      onClick={handleCloseNavMenu}
-                    >
-                      {page2}
-                    </Link> */}
-                     {pages2
+                {pages2
+                  .filter(
+                    (page2) => page2 !== "CheckOut" && page2 !== "SingleProduct")
                   .map((page2) => (
                     <Link
                       style={{
@@ -292,3 +277,22 @@ const ResponsiveAppBar = () => {
   );
 };
 export default ResponsiveAppBar;
+
+//================================navbar filter
+//    {pages2
+// .map((page2) => (
+//   <Link
+//     style={{
+//       textDecoration: "none",
+//       color: "white",
+//       display: "block",
+//       margin: "10px",
+//       fontSize: "17px",
+//     }}
+//     to={`/${page2}`}
+//     key={page2}
+//     onClick={handleCloseNavMenu}
+//   >
+//     {page2}
+//   </Link>
+// ))}

@@ -189,7 +189,18 @@ export const Brands = () => {
       </div>
 
       {/* </form> */}
-
+      <div style={{marginLeft:"750px"}}>
+      {loadshow && (
+        <FidgetSpinner
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="fidget-spinner-loading"
+          wrapperStyle={{}}
+          wrapperClass="fidget-spinner-wrapper"
+        />
+      )}
+      </div>
       <section className="intro">
         <div className="bg-image h-auto" style={{ backgroundColor: "#f5f7fa" }}>
           <div className="mask d-flex align-items-center h-auto">
@@ -206,16 +217,6 @@ export const Brands = () => {
                         <table className="table table-dark mb-0">
                           <thead style={{ backgroundColor: "#393939" }}>
                             <tr className="text-uppercase text-success">
-                              {loadshow && (
-                                <FidgetSpinner
-                                  visible={true}
-                                  height="80"
-                                  width="80"
-                                  ariaLabel="fidget-spinner-loading"
-                                  wrapperStyle={{}}
-                                  wrapperClass="fidget-spinner-wrapper"
-                                />
-                              )}
                               <th scope="col">ID</th>
                               <th scope="col">Name</th>
                               <th scope="col">Description</th>
