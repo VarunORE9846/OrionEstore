@@ -100,6 +100,16 @@ thead {
   height: 100px;
   width: 100%;
 }
+/* .CardImgg {
+  height: 15%;
+  width: 50%;
+  margin-left:22%;
+} */
+.CardImgg {
+  height: auto;
+  width: auto;
+  /* margin-left:22%; */
+}
 .checkout {
   /* margin-top:0%; */
   margin-left: 95%;

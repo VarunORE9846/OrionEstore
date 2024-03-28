@@ -18,7 +18,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { deleteFromCart as deleteFromCartAction } from "../Store/Reducers/productSlice";
-
+import { useNavigate } from "react-router-dom";
 interface Product {
   id: string;
   title: string;
@@ -62,6 +62,7 @@ export const CheckOut = () => {
     }));
     dispatch(deleteFromCartAction(del));
   };
+
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -136,9 +137,9 @@ export const CheckOut = () => {
                                 const nval = parseInt(e.target.value);
                                 if (!isNaN(nval)) {
                                   //if its a valid number
-                                  setCartProduct((prevCart) => ({
+                                  setCartProduct((prevCart: any) => ({
                                     ...prevCart,
-                                    items: prevCart.items.map((item) =>
+                                    items: prevCart.items.map((item: any) =>
                                       item.id === product.id
                                         ? { ...item, quantity: nval }
                                         : item
@@ -194,7 +195,7 @@ export const CheckOut = () => {
                   className="p-4 d-flex flex-row"
                   style={{ color: "green", fontSize: "50px" }}
                 >
-                  Total: {total}
+                  Total-Price: {total}
                 </MDBCardBody>
               </MDBCard>
               <div

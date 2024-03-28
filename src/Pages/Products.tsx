@@ -12,12 +12,12 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { addToCart as addToCartAction } from "../Store/Reducers/productSlice";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { Circles } from "react-loader-spinner";
-// interface Products {
-//   id: string;
-//   title: string;
-//   price: string;
-//   images: string[];
-// }
+interface Products {
+  id: string;
+  title: string;
+  price: string;
+  images: string[];
+}
 // interface CartItem {
 //   product: Products;
 //   quantity: [];
@@ -135,7 +135,7 @@ export const Products = () => {
                     <Card.Title>
                       <h6>
                         <Link
-                          to={`/Products/${e.id}`}
+                          to={`/SingleProduct/${e?.id}`}
                           style={{ color: "green", textDecoration: "none" }}
                         >
                           Product Details
@@ -148,6 +148,7 @@ export const Products = () => {
                         size="sm"
                         disabled={e?.quantity === 0}
                         onClick={() => dec(e?.id - 1)}
+                        style={{ width: "2.5rem", height: "2rem" }}
                       >
                         <RemoveIcon />
                       </Button>
@@ -156,6 +157,7 @@ export const Products = () => {
                         variant="success"
                         size="sm"
                         onClick={() => inc(e?.id - 1)}
+                        style={{ width: "2.5rem", height: "2rem" }}
                       >
                         <AddIcon />
                       </Button>

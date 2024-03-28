@@ -13,7 +13,7 @@ import { Profile } from "./Pages/Profile";
 import { Products } from "./Pages/Products";
 import { Brands } from "./Pages/Brands";
 import { Logout } from "@mui/icons-material";
-import  {Pagenf}  from "./Pages/Pagenf";
+import { Pagenf } from "./Pages/Pagenf";
 import PrivateRoutes from "./Utils/PrivateRoutes";
 import PublicRoutes from "./Utils/PublicRoutes";
 import { Redirect } from "./Pages/Redirect";
@@ -21,12 +21,10 @@ import { CheckOut } from "./Pages/CheckOut";
 import { ToastContainer } from "react-bootstrap";
 import { SingleProduct } from "./Pages/SingleProduct";
 
-
 function App() {
-
   return (
     <div>
-      <ToastContainer/>
+      <ToastContainer />
       <Router>
         <ResponsiveAppBar />
         <Routes>
@@ -58,9 +56,8 @@ function App() {
             <Route path="/Pagenf" element={<Pagenf />} />
             <Route path="/Brands" element={<Brands />} />
             <Route path="/CheckOut" element={<CheckOut />} />
-            <Route path="/Products/:id" element={<SingleProduct />} />
+            <Route path="/SingleProduct/:id" element={<SingleProduct />} />
             <Route path="*" element={<Pagenf />} />
-
           </Route>
         </Routes>
       </Router>
