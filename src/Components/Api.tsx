@@ -89,13 +89,13 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 const customFetch = axios.create({
-  baseURL:process.env.REACT_APP_BASE_URL,
+  baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true,
 });
-const isTokenExpired = async(token: string) => {
+const isTokenExpired = async (token: string) => {
   if (!token) {
     return true; // Token is considered expired if it's not present
   }
@@ -120,6 +120,7 @@ const refreshTokenn = async () => {
     }
   } catch (error) {
     console.log("Error from Api", error);
+    throw error;
   }
 };
 customFetch.interceptors.request.use(
@@ -136,15 +137,24 @@ customFetch.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+// &&
+//       error.response.source ===
+//         "WeeWildOnesApi.Infrastructure.Auth.Jwt.ConfigureJwtBearerOptions+<>c"
 customFetch.interceptors.response.use(
-  (response) => {
+  async(response) => {
+    console.log("response interceptor", response);
     return response;
   },
   async (error) => {
     const originalRequest = error.config;
-    if ((error.response.status === 401) && !originalRequest._retry) {
+    if (
+      error.response.status === 401 &&
+      !originalRequest._retry &&
+      error.response.data.error === "TokenExpiredError"
+    ) {
       originalRequest._retry = true;
       const resp = await refreshTokenn();
+      console.log("resp from response of refresh Api ", resp);
       const accessToken = resp.token;
       const refreshToken = resp.refreshToken;
       console.log("updated accesstoken", accessToken);

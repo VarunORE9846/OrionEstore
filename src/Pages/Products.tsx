@@ -25,6 +25,8 @@ interface Products {
 
 export const Products = () => {
   const [response, setResponse] = useState<any>([]);
+  const [product, setProduct] = useState<any>("");
+  const [show, setShow] = useState<boolean>(true);
   const [load, setLoad] = useState(false);
   // const [productName, setProductName] = useState("");
   // const [cart, setCart] = useState<any>([]);
@@ -36,7 +38,7 @@ export const Products = () => {
   const GetProducts = async () => {
     try {
       setLoad(true);
-      const res = await axios.get("https://dummyjson.com/products?limit=15");
+      const res = await axios.get("https://dummyjson.com/products?limit=30");
       // const res = await axios.get("https://dummyjson.com/carts");
       const ress = res.data.products.map((response: any) => ({
         ...response,
@@ -62,6 +64,20 @@ export const Products = () => {
     //   .catch((error) => {
     //     console.log("error from products API", error);
     //   });
+  };
+  const handleSearch = async () => {
+    try {
+      const res = await axios.get(
+        `https://dummyjson.com/products/search?q=${product}`
+      );
+      console.log("response from product search api", res);
+      if (res.status === 200) {
+        setResponse(res.data.products);
+        // setShow(false);
+      }
+    } catch (error) {
+      console.log("error from search api", error);
+    }
   };
   const inc = (index: number) => {
     const updatedResponse = [...response];
@@ -111,72 +127,101 @@ export const Products = () => {
             />
           </div>
         )}
+        <div className="form-group">
+          <div className="Brandpanell">
+            <label htmlFor="inputfield">
+              <h4>Product Name:</h4>
+            </label>
+          </div>
+          <div className="Brandpanell">
+            <input
+              type="text"
+              className="form-control"
+              id="inputfield"
+              placeholder="Search Product..."
+              onChange={(e) => setProduct(e.target.value)}
+            />
+          </div>
+          <div className="Brandpanell">
+            <button
+              type="button"
+              onClick={handleSearch}
+              className="btn btn-primary"
+            >
+              Search
+            </button>
+          </div>
+        </div>
         <div className="checkout">
           <Button size="lg" variant="warning" onClick={handleCheckOut}>
             <ShoppingCartCheckoutIcon />
           </Button>
         </div>
-        <div className="Cardd">
-          {response.map((e: any, i: number) => {
-            return (
-              <div className="Cards" key={i}>
-                <Card style={{ width: "18rem" }}>
-                  <Card.Img
-                    variant="top"
-                    className="CardImg"
-                    src={e?.images[0]}
-                  />
-                  <Card.Body>
-                    <Card.Title>
-                      Title:
-                      {e?.title.length <= 17 ? e?.title : e?.title.slice(0, 16)}
-                    </Card.Title>
-                    <Card.Title>Price:{e?.price}</Card.Title>
-                    <Card.Title>
-                      <h6>
-                        <Link
-                          to={`/SingleProduct/${e?.id}`}
-                          style={{ color: "green", textDecoration: "none" }}
+        {show && (
+          <div className="Cardd">
+            {response.map((e: any, i: number) => {
+              return (
+                <div className="Cards" key={i}>
+                  <Card style={{ width: "18rem" }}>
+                    <Card.Img
+                      variant="top"
+                      className="CardImg"
+                      src={e?.images[0]}
+                    />
+                    <Card.Body>
+                      <Card.Title>
+                        Title:
+                        {e?.title.length <= 17
+                          ? e?.title
+                          : e?.title.slice(0, 16)}
+                      </Card.Title>
+                      <Card.Title>Price:{e?.price}</Card.Title>
+                      <Card.Title>
+                        <h6>
+                          <Link
+                            to={`/SingleProduct/${e?.id}`}
+                            style={{ color: "green", textDecoration: "none" }}
+                          >
+                            Product Details
+                          </Link>
+                        </h6>
+                      </Card.Title>
+                      <Card.Title>
+                        <Button
+                          variant="success"
+                          size="sm"
+                          disabled={e?.quantity === 0}
+                          onClick={() => dec(e?.id - 1)}
+                          style={{ width: "2.5rem", height: "2rem" }}
                         >
-                          Product Details
-                        </Link>
-                      </h6>
-                    </Card.Title>
-                    <Card.Title>
-                      <Button
-                        variant="success"
-                        size="sm"
-                        disabled={e?.quantity === 0}
-                        onClick={() => dec(e?.id - 1)}
-                        style={{ width: "2.5rem", height: "2rem" }}
-                      >
-                        <RemoveIcon />
-                      </Button>
-                      Quantity:{e?.quantity}
-                      <Button
-                        variant="success"
-                        size="sm"
-                        onClick={() => inc(e?.id - 1)}
-                        style={{ width: "2.5rem", height: "2rem" }}
-                      >
-                        <AddIcon />
-                      </Button>
-                    </Card.Title>
-                    <Card.Text>
-                      <Button
-                        size="sm"
-                        variant="danger"
-                        onClick={() => addToCart(e)}
-                      >
-                        Add to Cart
-                      </Button>
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </div>
-            );
-          })}
-        </div>
+                          <RemoveIcon />
+                        </Button>
+                        Quantity:{e?.quantity}
+                        <Button
+                          variant="success"
+                          size="sm"
+                          onClick={() => inc(e?.id - 1)}
+                          style={{ width: "2.5rem", height: "2rem" }}
+                        >
+                          <AddIcon />
+                        </Button>
+                      </Card.Title>
+                      <Card.Text>
+                        <Button
+                          size="sm"
+                          variant="danger"
+                          onClick={() => addToCart(e)}
+                        >
+                          Add to Cart
+                        </Button>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </>
   );
