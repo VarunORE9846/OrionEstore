@@ -1,3 +1,6 @@
+*{
+  margin-top: 0%;
+}
 .App {
   text-align: center;
 }
@@ -91,7 +94,7 @@ thead {
   font-size: 40px;
 }
 .card-body {
-  max-height: 206px;
+  max-height: 256px;
 }
 .card-text {
   margin: 8px 48px 0px;
@@ -117,6 +120,7 @@ thead {
 .Pagination {
   margin-top: 15%;
   margin-left: 85%;
+  
 }
 #pricee{
   margin-left:50%

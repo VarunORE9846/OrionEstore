@@ -10,6 +10,7 @@ import { Home } from "./Pages/Home";
 import { Login } from "./Auth/Login";
 import { Signup } from "./Auth/Signup";
 import { Profile } from "./Pages/Profile";
+import { Profilee } from "./Pages/Profilee";
 import { Products } from "./Pages/Products";
 import { Brands } from "./Pages/Brands";
 import { Logout } from "@mui/icons-material";
@@ -50,6 +51,7 @@ function App() {
             }
           >
             <Route path="/Profile" element={<Profile />} />
+            <Route path="/Profilee" element={<Profilee />} />
             <Route path="/Redirect" element={<Redirect />} />
             <Route path="/Redirect" element={<Logout />} />
             <Route path="/Products" element={<Products />} />

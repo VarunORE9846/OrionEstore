@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 const pages = ["Home", "LogIn", "SignUp"];
-const pages2 = ["Products", "Profile", "Brands", "CheckOut", "SingleProduct"];
+const pages2 = ["Products", "Profile", "Brands", "CheckOut", "SingleProduct","Profilee"];
 interface Arr {
   isUser: string;
   accessToken: string;

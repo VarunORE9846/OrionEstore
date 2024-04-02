@@ -10,7 +10,6 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Button } from "@mui/material";
 import { brandData as brandDataAction } from "../Store/Reducers/brandSlicee";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateIcon from "@mui/icons-material/Create";
 import Update from "../Components/Update";
@@ -206,7 +205,7 @@ export const Brands = () => {
           <div className="mask d-flex align-items-center h-auto">
             <div className="container">
               <div className="row justify-content-center">
-                <div className="col-12">
+                <div className="col-12" style={{width:"100%"}}>
                   <div className="card shadow-2-strong">
                     <div className="card-body p-0">
                       <div

@@ -68,11 +68,11 @@ export const CheckOut = () => {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title style={{ color: "green" }}>
-            Your Order Is Placed
+            Thank You For Visiting OrionEStore
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ color: "orange" }}>
-          Thank You For Visiting OrionEStore.Please Do Visit Again
+          Your Order Is Placed..Please Do Visit Again
         </Modal.Body>
         <Modal.Footer>
           <Button variant="warning" onClick={handleClose}>
@@ -195,7 +195,7 @@ export const CheckOut = () => {
                   className="p-4 d-flex flex-row"
                   style={{ color: "green", fontSize: "50px" }}
                 >
-                  Total-Price: {total}
+                  Total-Price: ${total}
                 </MDBCardBody>
               </MDBCard>
               <div
