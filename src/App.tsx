@@ -27,7 +27,7 @@ function App() {
     <div>
       <ToastContainer />
       <Router>
-        <ResponsiveAppBar />
+        <ResponsiveAppBar/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route

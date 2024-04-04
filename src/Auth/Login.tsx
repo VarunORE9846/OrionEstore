@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import login from "../Images/login.jpg";
+import login from "../Images/login.jpg";  
 // import axios from "axios";
 // import { Hourglass } from "react-loader-spinner";
 import Api from "../Components/Api";
@@ -49,6 +49,7 @@ export const Login = () => {
 
   return (
     <>
+    <div>
       <ThemeProvider theme={defaulttheme}>
         <Grid container component="main" sx={{ height: "100vh" }}>
           <CssBaseline />
@@ -127,7 +128,7 @@ export const Login = () => {
                       console.log("login response data", loginresponse.data);
                       toast.success("Login Successfull");
                       setTimeout(() => {
-                        navigate("/Profile");
+                        navigate("/Profilee");
                       }, 2500);
                       setSubmitting(false);
                       setSubmitted(true);
@@ -214,6 +215,7 @@ export const Login = () => {
           </Grid>
         </Grid>
       </ThemeProvider>
+      </div>
     </>
   );
 };

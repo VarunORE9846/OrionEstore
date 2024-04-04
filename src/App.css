@@ -1,3 +1,4 @@
+
 *{
   margin-top: 0%;
 }
@@ -93,9 +94,7 @@ thead {
   margin-bottom: 50px;
   font-size: 40px;
 }
-.card-body {
-  max-height: 256px;
-}
+
 .card-text {
   margin: 8px 48px 0px;
 }
@@ -131,3 +130,4 @@ thead {
 #checkk{
   margin-right: 15%;
 }
+

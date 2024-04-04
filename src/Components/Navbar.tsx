@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 const pages = ["Home", "LogIn", "SignUp"];
-const pages2 = ["Products", "Profile", "Brands", "CheckOut", "SingleProduct","Profilee"];
+const pages2 = ["Products", "Brands", "CheckOut", "SingleProduct", "Profilee"];
 interface Arr {
   isUser: string;
   accessToken: string;
@@ -131,7 +131,8 @@ const ResponsiveAppBar = () => {
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {pages2
                   .filter(
-                    (page2) => page2 !== "CheckOut" && page2 !== "SingleProduct")
+                    (page2) => page2 !== "CheckOut" && page2 !== "SingleProduct"
+                  )
                   .map((page2) => (
                     <Link
                       style={{

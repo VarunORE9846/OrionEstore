@@ -72,7 +72,7 @@ export const SingleProduct = () => {
   return (
     <>
       <ToastContainer style={{ width: 340 }} />
-      <Card style={{ width: "35rem", height: "70rem", marginTop: "1%" }}>
+      <Card style={{ width: "35rem", marginTop: "1%" }}>
         <Card.Img variant="top" className="CardImgg" src={response.images[0]} />
         <Card.Body style={{ marginTop: "1%" }}>
           <Card.Title>

@@ -1,8 +1,10 @@
-import * as images from '../Images/Index'
+import * as images from "../Images/Index";
+import ResponsiveAppBar from "../Components/Navbar";
+import "../App.css";
 export const Home = () => {
   return (
-    <div>
-       <div id="carouselExample" className="carousel slide">
+    <>
+      <div id="carouselExample" className="carousel slide">
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img src={images?.image1} className="d-block w-100" alt="..." />
@@ -20,18 +22,34 @@ export const Home = () => {
             <img src={images?.image5} className="d-block w-100" alt="..." />
           </div>
           <div className="carousel-item">
-            <img src={images?.image6  } className="d-block w-100" alt="..." />
+            <img src={images?.image6} className="d-block w-100" alt="..." />
           </div>
         </div>
-        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        <button
+          className="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="prev"
+        >
+          <span
+            className="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
           <span className="visually-hidden">Previous</span>
         </button>
-        <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+        <button
+          className="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="next"
+        >
+          <span
+            className="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-    </div>
+    </>
   );
 };
